@@ -7,9 +7,22 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        $search = $request->input('search');
+
+        // Iniciamos la consulta sin ejecutarla todavía (sin get ni all)
+        $query = Product::query();
+
+        //Si hay un término de búsqueda, agregamos condiciones a la consulta
+        if ($search) {
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('category', 'like', "%{$search}%");
+        }
+
+        // Aquí es donde puedes elegir entre traer todos o paginar
+        // Si usas paginate, Laravel crea la lógica de páginas automáticamente
+        $products = $query->orderBy('id', 'desc')->paginate(5);
 
         return view('products.index', compact('products'));
     }

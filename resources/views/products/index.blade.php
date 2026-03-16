@@ -6,12 +6,22 @@
             <h1 class="text-2xl font-semibold text-gray-800">Lista de productos</h1>
 
             <div class="flex items-center gap-3 w-full md:w-auto">
-                <div class="relative w-full md:w-64">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                        <i class="bi bi-search"></i>
-                    </span>
-                    <input type="text" placeholder="Buscar producto..."
-                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-300 focus:border-gray-300 outline-none transition-all text-sm">
+                <!-- Formulario de búsqueda: aquí llamamos al método index del controlador-->
+                <div class="flex items-center gap-2">
+                    <form action="{{ route('products.index') }}" method="GET" class="relative w-full md:w-64">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Buscar..."
+                            class="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-300 outline-none text-sm">
+
+                        @if (request('search'))
+                            <a href="{{ route('products.index') }}"
+                                class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-red-500">
+                                <i class="bi bi-x-circle-fill"></i>
+                            </a>
+                        @endif
+                    </form>
                 </div>
 
                 <a href="{{ route('products.create') }}"
@@ -43,7 +53,8 @@
                             </td>
                             <td class="px-6 py-4 text-center">Q{{ number_format($product->price, 2) }}</td>
                             <td class="px-6 py-4 text-center">
-                                <span class="{{ $product->stock > 10 ? 'text-green-600 font-medium' : 'text-red-500 font-bold' }}">
+                                <span
+                                    class="{{ $product->stock > 10 ? 'text-green-600 font-medium' : 'text-red-500 font-bold' }}">
                                     {{ $product->stock }}
                                 </span>
                             </td>
@@ -70,6 +81,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="mt-4">
+                {{ $products->appends(['search' => request('search')])->links() }}
+            </div>
         </div>
     </main>
 @endsection
