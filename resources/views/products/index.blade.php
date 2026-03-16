@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-</head>
-
-<body>
+@section('content')
     <main class="container mx-auto p-6 max-w-7xl">
         <div class="flex justify-between items-center mb-12">
             <h1 class="text-2xl font-medium">Lista de productos</h1>
@@ -54,7 +45,4 @@
             </table>
         </div>
     </main>
-
-</body>
-
-</html>
+@endsection
