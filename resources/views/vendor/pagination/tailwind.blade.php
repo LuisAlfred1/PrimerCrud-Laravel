@@ -33,17 +33,17 @@
 
             <div>
                 <p class="text-sm text-gray-500 leading-5">
-                    {!! __('Showing') !!}
+                    {!! __('Mostrando del') !!}
                     @if ($paginator->firstItem())
                         <span class="font-semibold text-gray-700">{{ $paginator->firstItem() }}</span>
-                        {!! __('to') !!}
+                        {!! __('al') !!}
                         <span class="font-semibold text-gray-700">{{ $paginator->lastItem() }}</span>
                     @else
                         {{ $paginator->count() }}
                     @endif
-                    {!! __('of') !!}
+                    {!! __('de') !!}
                     <span class="font-semibold text-gray-700">{{ $paginator->total() }}</span>
-                    {!! __('results') !!}
+                    {!! __('resultados') !!}
                 </p>
             </div>
 
