@@ -31,57 +31,60 @@
             </div>
         </div>
 
-        <div class="overflow-hidden bg-white rounded-xl shadow-sm border border-gray-200">
-            <table class="w-full text-sm text-left text-gray-600">
-                <thead class="bg-gray-200 text-gray-700 uppercase text-xs font-semibold">
-                    <tr>
-                        <th class="px-6 py-4">Producto</th>
-                        <th class="px-6 py-4">Categoría</th>
-                        <th class="px-6 py-4 text-center">Precio</th>
-                        <th class="px-6 py-4 text-center">Stock</th>
-                        <th class="px-6 py-4 text-right">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200">
-                    @foreach ($products as $product)
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-4 font-medium text-gray-900">{{ $product->name }}</td>
-                            <td class="px-6 py-4">
-                                <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">
-                                    {{ $product->category }}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-center">Q{{ number_format($product->price, 2) }}</td>
-                            <td class="px-6 py-4 text-center">
-                                <span
-                                    class="{{ $product->stock > 10 ? 'text-green-600 font-medium' : 'text-red-500 font-bold' }}">
-                                    {{ $product->stock }}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex justify-end gap-3">
-                                    <a href="{{ route('products.edit', $product) }}"
-                                        class="text-blue-600 hover:text-blue-800 transition-colors" title="Editar">
-                                        <i class="bi bi-pencil-square text-lg"></i>
-                                    </a>
-
-                                    <form action="{{ route('products.destroy', $product) }}" method="POST"
-                                        onsubmit="return confirm('¿Eliminar producto?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="text-red-600 hover:text-red-800 cursor-pointer transition-colors"
-                                            title="Eliminar">
-                                            <i class="bi bi-trash text-lg"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
+        <div class="overflow-hidden bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col min-h-[420px]">
+            <div class="grow">
+                <table class="w-full text-sm text-left text-gray-600">
+                    <thead class="bg-gray-200 text-gray-700 uppercase text-xs font-semibold">
+                        <tr>
+                            <th class="px-6 py-4">Producto</th>
+                            <th class="px-6 py-4">Categoría</th>
+                            <th class="px-6 py-4 text-center">Precio</th>
+                            <th class="px-6 py-4 text-center">Stock</th>
+                            <th class="px-6 py-4 text-right">Acciones</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="mt-4">
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        @foreach ($products as $product)
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 font-medium text-gray-900">{{ $product->name }}</td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">
+                                        {{ $product->category }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-center">Q{{ number_format($product->price, 2) }}</td>
+                                <td class="px-6 py-4 text-center">
+                                    <span
+                                        class="{{ $product->stock > 10 ? 'text-green-600 font-medium' : 'text-red-500 font-bold' }}">
+                                        {{ $product->stock }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex justify-end gap-3">
+                                        <a href="{{ route('products.edit', $product) }}"
+                                            class="text-blue-600 hover:text-blue-800 transition-colors" title="Editar">
+                                            <i class="bi bi-pencil-square text-lg"></i>
+                                        </a>
+
+                                        <form action="{{ route('products.destroy', $product) }}" method="POST"
+                                            onsubmit="return confirm('¿Eliminar producto?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="text-red-600 hover:text-red-800 cursor-pointer transition-colors"
+                                                title="Eliminar">
+                                                <i class="bi bi-trash text-lg"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="px-6 py-3 bg-gray-50 border-t border-gray-200 text-gray-500">
                 {{ $products->appends(['search' => request('search')])->links() }}
             </div>
         </div>
