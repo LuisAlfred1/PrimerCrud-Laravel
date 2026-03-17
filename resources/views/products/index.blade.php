@@ -3,7 +3,17 @@
 @section('content')
     <main class="container mx-auto p-6 max-w-7xl">
         <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-            <h1 class="text-2xl font-semibold text-gray-800">Lista de productos</h1>
+            <div class="flex items-center gap-4">
+                <h1 class="text-2xl font-semibold text-gray-800">Lista de productos</h1>
+                {{-- Alerta de éxito --}}
+                @if (session('success'))
+                    <x-alert type="success" :message="session('success')" />
+                @endif
+
+                @if (session('error'))
+                    <x-alert type="error" :message="session('error')" />
+                @endif
+            </div>
 
             <div class="flex items-center gap-3 w-full md:w-auto">
                 <!-- Formulario de búsqueda: aquí llamamos al método index del controlador-->
@@ -55,7 +65,7 @@
                                 <td class="px-6 py-4 text-center">Q{{ number_format($product->price, 2) }}</td>
                                 <td class="px-6 py-4 text-center">
                                     <span
-                                        class="{{ $product->stock > 10 ? 'text-green-600 font-medium' : 'text-red-500 font-bold' }}">
+                                        class="{{ $product->stock > 8 ? 'text-green-600 font-medium' : 'text-red-500 font-bold' }}">
                                         {{ $product->stock }}
                                     </span>
                                 </td>
