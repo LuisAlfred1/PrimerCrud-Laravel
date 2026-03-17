@@ -85,7 +85,17 @@
                 </table>
             </div>
 
+            <!-- Paginación -->
             <div class="px-6 py-3 bg-gray-50 border-t border-gray-200 text-gray-500">
+                {{-- 
+                ->appends(['search' => request('search')])
+                        Agrega el parámetro "search" a los enlaces de paginación.
+                        Sin esto, al cambiar de página se perdería el texto escrito en el buscador.
+
+                ->links()
+                    Genera los botones de paginación (anterior, números, siguiente)
+                    usando la vista personalizada en resources/views/vendor/pagination
+                --}}
                 {{ $products->appends(['search' => request('search')])->links() }}
             </div>
         </div>
