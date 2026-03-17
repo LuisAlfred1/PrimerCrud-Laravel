@@ -66,17 +66,18 @@
                                             <i class="bi bi-pencil-square text-lg"></i>
                                         </a>
 
-                                        <form action="{{ route('products.destroy', $product) }}" method="POST"
-                                            onsubmit="return confirm('¿Eliminar producto?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="text-red-600 hover:text-red-800 cursor-pointer transition-colors"
-                                                title="Eliminar">
-                                                <i class="bi bi-trash text-lg"></i>
-                                            </button>
-                                        </form>
+                                        {{-- Botón que abre el modal --}}
+                                        <button type="button" onclick="openModal('modal-delete-{{ $product->id }}')"
+                                            class="text-red-600 hover:text-red-800 cursor-pointer transition-colors"
+                                            title="Eliminar">
+                                            <i class="bi bi-trash text-lg"></i>
+                                        </button>
                                     </div>
+
+                                    {{-- Modal de confirmación --}}
+                                    <x-modal-confirm id="modal-delete-{{ $product->id }}" title="¿Eliminar producto?"
+                                        message="Se eliminará '{{ $product->name }}' de forma permanente."
+                                        :action="route('products.destroy', $product)" />
                                 </td>
                             </tr>
                         @endforeach
