@@ -21,7 +21,7 @@ class ProductController extends Controller
         }
 
         // Aquí es donde puedes elegir entre traer todos o paginar
-        // Si usas paginate, Laravel crea la lógica de páginas automáticamente
+        // utilizamos el metodo paginate en donde Laravel crea la lógica de páginas automáticamente
         $products = $query->orderBy('id', 'desc')->paginate(5);
 
         return view('products.index', compact('products'));
